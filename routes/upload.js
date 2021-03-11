@@ -8,7 +8,7 @@ const {
 
 const path = require("path");
 const fs = require("fs");
-const { truncate } = require("fs/promises");
+
 
 const router = express.Router();
 
@@ -163,7 +163,7 @@ router.get("/movies", (req, res) => {
 					});
 					res.end();
 				});
-                
+
 				moviesDetails.forEach(async (newMovie) => {
 					if (newMovie.Gross_Earning_in_Mil == "NA") {
 						delete newMovie.Gross_Earning_in_Mil;

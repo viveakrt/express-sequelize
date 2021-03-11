@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const db = require('./models');
 const dotenv = require('dotenv');
-const uploadData = require('./routes/upload');
+const upload = require('./routes/upload');
+const crud = require('./routes/crud');
 const mysql = require("mysql2");
 
 dotenv.config();
@@ -11,7 +12,8 @@ dotenv.config();
 
 PORT = process.env.PORT;
 
-app.use('/upload', uploadData);
+app.use('/', crud );
+app.use('/upload', upload);
 
 db.sequelize.sync().then((req) => {
     app.listen(PORT, () => {
