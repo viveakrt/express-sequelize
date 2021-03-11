@@ -106,7 +106,7 @@ router.post("/new", (req, res) => {
 	}
 
 	const movie = {
-		Rank: req.body.Rank ,
+		Rank: req.body.Rank,
 		Title: req.body.Title,
 		Description: req.body.Description || "NA",
 		Runtime: req.body.Runtime || 0,
@@ -132,8 +132,42 @@ router.post("/new", (req, res) => {
 		.catch((err) => {
 			logger.log("error", err);
 
+			res.setStatus(500).end();
+		});
+});
+
+route.put("/:id", (req, res) => {
+	const id = Number(req.params.id);
+	Movies.update(req.body, {
+		where: { Rank: id },
+	})
+		.then((num) => {
+			if (num == 1) {
+				res
+					.status(201)
+					.json({
+						message: "Movie was updated successfully.",
+					})
+					.end();
+			} else {
+				logger.log("info", `Movie with the id ${id} is not found!!!! :(`);
+
+				res
+					.status(404)
+					.json({
+						message: `Cannot update Movie with id=${id}. Maybe Movie was not found or req.body is empty!`,
+					})
+					.end();
+			}
+		})
+		.catch((err) => {
+			logger.log("error", err);
+
 			res
-				.setStatus(500)
+				.status(500)
+				.json({
+					message: "Error updating Movie with id=" + id,
+				})
 				.end();
 		});
 });
