@@ -9,7 +9,7 @@ const logger = createLogger({
             format : format.combine(format.timestamp(),format.json())
 		}),
         new transports.Console({
-            level : "http",
+            level : "error",
             format : format.combine(format.timestamp(),format.json())
         })
 	],

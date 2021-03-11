@@ -9,12 +9,13 @@ const logger = require("./config/logger");
 
 dotenv.config();
 
-
+app.use(express.json());
 
 PORT = process.env.PORT;
 
 app.use('/', crud );
 app.use('/upload', upload);
+
 
 db.sequelize.sync().then((req) => {
     app.listen(PORT, () => {
