@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataType) => {
-	const movieDetails = sequelize.define("movie", {
+	const movieDetails = sequelize.define("movieDetails", {
 		id: {
 			type: dataType.INTEGER,
 			allowNull: false,
@@ -10,10 +10,13 @@ module.exports = (sequelize, dataType) => {
 		Title: dataType.STRING,
 		Description: dataType.TEXT,
 		Runtime: dataType.INTEGER,
-		Rating: dataType.DECIMAL(3,1),
+		GenreId: dataType.INTEGER,
+		Rating: dataType.DECIMAL(3, 1),
 		Metascore: dataType.INTEGER,
 		Votes: dataType.INTEGER,
 		Gross_Earning_in_Mil: dataType.DECIMAL,
+		DirectorId: dataType.INTEGER,
+		ActorId: dataType.INTEGER,
 		Year: dataType.DATEONLY,
 	});
 	return movieDetails;
