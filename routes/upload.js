@@ -12,7 +12,7 @@ const fs = require("fs");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
+router.get("/add", (req, res) => {
 	fs.readFile(
 		path.join(__dirname, "../movies.json"),
 		"utf-8",
@@ -116,7 +116,7 @@ router.get("/movies", (req, res) => {
 	fs.readFile(
 		path.join(__dirname, "../movies.json"),
 		"utf-8",
-		async (err, movies) => {
+		(err, movies) => {
 			if (err) {
 				console.log(err);
 				res.status(500).json({
@@ -125,34 +125,11 @@ router.get("/movies", (req, res) => {
 				res.end();
 			} else {
 				movies = JSON.parse(movies);
-				const newDirector = await Director.findAll();
-				const newActor = await Actor.findAll();
-				const newGenre = await Genre.findAll();
 				let moviesDetails = [];
 
 				movies.forEach((movie) => {
 					let newMovie = {};
-					newDirector.forEach((director) => {
-						if (movie.Director == director.name) {
-							newMovie.DirectorId = director.id;
-						}
-					});
-
-					newActor.forEach((actor) => {
-						if (movie.Actor == actor.name) {
-							newMovie.ActorId = actor.id;
-						}
-					});
-
-					newGenre.forEach((genre) => {
-						if (movie.Genre == genre.type) {
-							newMovie.GenreId = genre.id;
-						}
-					});
 					newMovie = { ...movie, ...newMovie };
-					delete newMovie.Director;
-					delete newMovie.Actor;
-					delete newMovie.Genre;
 					moviesDetails.push(newMovie);
 				});
 

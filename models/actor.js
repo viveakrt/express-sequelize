@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
 	const actor = sequelize.define("actor", {
-		id: {
+		name: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
 			autoIncrement: true,

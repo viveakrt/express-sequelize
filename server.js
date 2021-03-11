@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const upload = require('./routes/upload');
 const crud = require('./routes/crud');
 const mysql = require("mysql2");
+const logger = require("./config/logger");
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ app.use('/upload', upload);
 
 db.sequelize.sync().then((req) => {
     app.listen(PORT, () => {
-        console.log(`Server started at ${PORT}`);
+        logger.log('info',`Server started at ${PORT}`);
     });
     
 }).catch((err) => {
