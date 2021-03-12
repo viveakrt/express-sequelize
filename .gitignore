@@ -1,2 +1,4 @@
 node_modules
 info.log
+.env
+config
