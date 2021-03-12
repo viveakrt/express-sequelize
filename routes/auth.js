@@ -1,8 +1,13 @@
 const router = require("express").Router();
-const crypto = require('crypto');
+
+const crypto = require("crypto");
 const { user: User } = require("../models");
 const { isAlphanumeric, isEmail } = require("validator");
 const logger = require("../config/logger");
+const jwt = require("jsonwebtoken");
+const user = require("../models/user");
+
+
 
 router.post("/register", async (req, res) => {
 	const newUser = {
@@ -84,7 +89,7 @@ router.post("/login", async (req, res) => {
 			user: req.body.user,
 			password: encrypted,
 		};
-    }else if(req.body.email){
+	} else if (req.body.email) {
 		newUser = {
 			email: req.body.email,
 			password: encrypted,
@@ -97,14 +102,11 @@ router.post("/login", async (req, res) => {
 		where: newUser,
 	});
 
-	if (userExists !== null)
-		return res
-			.status(201)
-			.json({
-				message: `Welcome ${userExists.user} `,
-			})
-			.end();
-	else {
+	if (userExists !== null) {
+		const token = jwt.sign({ user: userExists.user }, process.env.TOKEN_SECRET);
+        res.header('auth-token',token).send(token).end();
+		return;
+	} else {
 		res
 			.status(400)
 			.json({

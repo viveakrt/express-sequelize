@@ -4,10 +4,12 @@ const db = require("../models");
 const {
 	movieDetails: Movie,
 } = require("../models");
+const verify  = require('./verifyToken');
 
 const router = express.Router();
 
-router.get("/all", (req, res) => {
+router.get("/all",verify, (req, res) => {
+
 	Movie.findAll()
 		.then((movie) => {
 			if (movie.length > 0) {
@@ -23,7 +25,7 @@ router.get("/all", (req, res) => {
 		});
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id",verify, (req, res) => {
 	const id = Number(req.params.id);
 
 	Movie.findByPk(id)
@@ -51,7 +53,7 @@ router.get("/:id", (req, res) => {
 		});
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id",verify, (req, res) => {
 	const id = Number(req.params.id);
 	if (Number.isInteger(id) && id > 0) {
 		Movie.destroy({
@@ -87,7 +89,7 @@ router.delete("/:id", (req, res) => {
 	}
 });
 
-router.post("/new", (req, res) => {
+router.post("/new",verify, (req, res) => {
 	if (
 		!req.body.Rank ||
 		!req.body.Title ||
@@ -133,7 +135,7 @@ router.post("/new", (req, res) => {
 		});
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id",verify, (req, res) => {
 	const id = Number(req.params.id);
 	Movies.update(req.body, {
 		where: { Rank: id },
