@@ -2,10 +2,7 @@ const express = require("express");
 const logger = require("../config/logger");
 const db = require("../models");
 const {
-	director: Director,
-	genreTypes: Genre,
 	movieDetails: Movie,
-	actor: Actor,
 } = require("../models");
 
 const router = express.Router();
@@ -136,7 +133,7 @@ router.post("/new", (req, res) => {
 		});
 });
 
-route.put("/:id", (req, res) => {
+router.put("/:id", (req, res) => {
 	const id = Number(req.params.id);
 	Movies.update(req.body, {
 		where: { Rank: id },
