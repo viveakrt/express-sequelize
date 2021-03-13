@@ -1,4 +1,5 @@
 node_modules
 info.log
+log
 .env
 config

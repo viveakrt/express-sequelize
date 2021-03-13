@@ -1,4 +1,4 @@
-module.exports = (sequelize, dataTypes) => {
+const director = (sequelize, dataTypes) => {
 	const director = sequelize.define("director", {
 		id: {
 			type: dataTypes.INTEGER,
@@ -10,3 +10,5 @@ module.exports = (sequelize, dataTypes) => {
 	});
 	return director;
 };
+
+module.exports = director;

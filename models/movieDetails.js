@@ -1,4 +1,4 @@
-module.exports = (sequelize, dataType) => {
+const movies = (sequelize, dataType) => {
 	const movieDetails = sequelize.define("movieDetails", {
 		id: {
 			type: dataType.INTEGER,
@@ -6,7 +6,11 @@ module.exports = (sequelize, dataType) => {
 			autoIncrement: true,
 			primaryKey: true,
 		},
-		Rank: dataType.INTEGER,
+		Rank: {
+			type:dataType.INTEGER,
+			unique:true,
+			isNumeric:true,
+		},
 		Title: dataType.STRING,
 		Description: dataType.TEXT,
 		Runtime: dataType.INTEGER,
@@ -21,3 +25,5 @@ module.exports = (sequelize, dataType) => {
 	});
 	return movieDetails;
 };
+
+module.exports = movies;
